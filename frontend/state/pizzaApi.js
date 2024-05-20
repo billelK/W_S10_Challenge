@@ -6,11 +6,21 @@ export const pizzaApi = createApi({
     tagTypes: ["pizza"],
     endpoints: build => ({
         getHistory: build.query ({
-            query: () => "history"
+            query: () => "history",
+            providesTags: ["pizza"]
+        }),
+        createOrder: build.mutation ({
+            query: order => ({
+                url: "order",
+                method: "POST",
+                body: order
+            }),
+            invalidatesTags: ["pizza"]
         })
     })
 })
 
 export const {
-    useGetHistoryQuery
+    useGetHistoryQuery,
+    useCreateOrderMutation
 } = pizzaApi
